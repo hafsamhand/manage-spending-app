@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,16 +19,16 @@ Route::middleware('auth')->group(function () {
     
     // App pages (blade shell) - React mounts into #app
     Route::get('/expenses', function () {
-        return view('app', ['props' => ['user' => auth()->user()]]);
+        return view('app', ['props' => ['user' => Auth::user()]]);
     })->name('expenses');
 
     Route::get('/loans', function () {
-        return view('app', ['props' => ['user' => auth()->user()]]);
+        return view('app', ['props' => ['user' => Auth::user()]]);
     })->name('loans');
 
     // catch-all for client-side routes under /app/*
     Route::get('/app/{any?}', function () {
-        return view('app', ['props' => ['user' => auth()->user()]]);
+        return view('app', ['props' => ['user' => Auth::user()]]);
     })->where('any', '.*');
 });
 
