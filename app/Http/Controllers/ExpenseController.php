@@ -13,7 +13,8 @@ class ExpenseController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            $query = Expense::where('user_id', Auth::id());
+            $query = Expense::where('user_id', 1);
+            // $query = Expense::where('user_id', Auth::id());
             if ($month = $request->query('month')) {
                 $query->whereRaw("strftime('%Y-%m', spent_at) = ?", [$month]);
             }

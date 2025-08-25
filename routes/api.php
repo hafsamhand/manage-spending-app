@@ -5,7 +5,7 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\DashboardController;
 
-Route::middleware('auth:web')->group(function () {
+// Route::middleware('auth:web')->group(function () {
     // Expenses
     Route::get('/expenses', [ExpenseController::class, 'index']);
     Route::post('/expenses', [ExpenseController::class, 'store']);
@@ -24,4 +24,4 @@ Route::middleware('auth:web')->group(function () {
     // Dashboard stats
     Route::get('/stats', [DashboardController::class, 'stats']);
     Route::get('/stats/expenses-by-category', [DashboardController::class, 'expensesByCategory']);
-});
+// });

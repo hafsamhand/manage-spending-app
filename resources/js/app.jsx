@@ -14,11 +14,19 @@ const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('c
 if (token) axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
 axios.defaults.withCredentials = true;
 
-const props = window.props || {};
+// props are injected by Blade into the #app dataset; read them at runtime
+const props = (() => {
+    try {
+        const el = document.getElementById('app');
+        return el ? JSON.parse(el.dataset.props || '{}') : {};
+    } catch (e) {
+        return {};
+    }
+})();
 
 function App() {
     return (
-        <BrowserRouter basename="/app">
+    <BrowserRouter>
             <Layout user={props.user}>
                 <Routes>
                     <Route path="/" element={<Dashboard />} />

@@ -11,8 +11,9 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Scripts -->
+    {{-- Load React (app.jsx) and Alpine (app.js) so the React SPA mounts into the Blade shell --}}
+    @vite(['resources/css/app.css', 'resources/js/app.jsx', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -27,9 +28,13 @@
                 </header>
             @endisset
 
-            <!-- Page Content -->
+            <!-- Page Content: support both @section('content') and component $slot -->
             <main>
-                {{ $slot }}
+                @hasSection('content')
+                    @yield('content')
+                @elseif (isset($slot))
+                    {{ $slot }}
+                @endif
             </main>
         </div>
     </body>
